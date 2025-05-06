@@ -19,9 +19,11 @@ const Home = () => {
 
     useEffect(() => {
         setFilteredCountries(
-            countries.filter(country =>
-                country.name.toLowerCase().includes(searchTerm.toLowerCase())
-            )
+            countries.filter((country) => {
+                if (!country.name || typeof country.name !== 'object') return false;
+                const countryName = country.name.common || '';
+                return countryName.toLowerCase().includes(searchTerm.toLowerCase());
+            })
         );
     }, [searchTerm, countries]);
 
@@ -39,7 +41,7 @@ const Home = () => {
             />
             <div className="country-list">
                 {filteredCountries.map(country => (
-                    <CountryCard key={country.alpha3Code} country={country} />
+                    <CountryCard key={country.cca3} country={country} />
                 ))}
             </div>
         </div>
