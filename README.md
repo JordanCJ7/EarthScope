@@ -1,12 +1,58 @@
-# React + Vite
+# EarthScope
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+EarthScope is a React application that uses the REST Countries API to display country information. Users can search, filter, and view detailed data about countries.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Display a list of countries with their names, flags, populations, regions, capitals, and languages.
+- Search functionality to find countries by name.
+- Filter countries by region.
+- View detailed information about a specific country with additional information.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- React.js
+- React Router
+- REST Countries API
+- CSS for styling
+
+## Getting Started
+
+To get a local copy up and running, follow these simple steps:
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/rest-countries-app.git
+   ```
+
+2. **Navigate to the project directory**
+   ```bash
+   cd rest-countries-app
+   ```
+
+3. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+4. **Start the development server**
+   ```bash
+   npm start
+   ```
+
+5. **Open your browser and visit**
+   ```
+   http://localhost:3000
+   ```
+
+## API Reference
+
+This application uses the [REST Countries API](https://restcountries.com/) to fetch country data.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an issue.
+
+## License
+
+This project is licensed under the MIT License.
