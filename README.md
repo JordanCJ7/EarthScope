@@ -22,7 +22,7 @@ To get a local copy up and running, follow these simple steps:
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/rest-countries-app.git
+   git clone https://github.com/JordanCJ7/https://github.com/JordanCJ7/EarthScope-JavaScript.git
    ```
 
 2. **Navigate to the project directory**
