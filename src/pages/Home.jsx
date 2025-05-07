@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import CountryCard from '../components/CountryCard';
+import SearchBar from '../components/SearchBar';
 import { fetchAllCountries } from '../services/api';
 
 const Home = () => {
     const [countries, setCountries] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [region, setRegion] = useState('All Regions');
     const [filteredCountries, setFilteredCountries] = useState([]);
 
     useEffect(() => {
@@ -22,10 +24,12 @@ const Home = () => {
             countries.filter((country) => {
                 if (!country.name || typeof country.name !== 'object') return false;
                 const countryName = country.name.common || '';
-                return countryName.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesSearch = countryName.toLowerCase().includes(searchTerm.toLowerCase());
+                const matchesRegion = region === 'All Regions' || country.region === region;
+                return matchesSearch && matchesRegion;
             })
         );
-    }, [searchTerm, countries]);
+    }, [searchTerm, region, countries]);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -33,13 +37,13 @@ const Home = () => {
 
     return (
         <div>
-            <input
-                type="text"
-                placeholder="Search for a country..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+            <SearchBar
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                region={region}
+                setRegion={setRegion}
             />
-            <div className="country-list">
+            <div className="country-grid">
                 {filteredCountries.map(country => (
                     <CountryCard key={country.cca3} country={country} />
                 ))}
