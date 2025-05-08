@@ -21,7 +21,7 @@ const App = () => {
                     <Route path="/" exact>
                         <HomePage countries={countries} />
                     </Route>
-                    <Route path="/country/:name" component={CountryDetails} />
+                    <Route path="/country/:code" component={CountryDetails} />
                 </Switch>
             </div>
         </Router>
