@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { fetchCountryDetails } from '../services/api';
 
 const CountryDetails = () => {
-    const { countryName } = useParams();
+    const { code } = useParams();
     const [country, setCountry] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -11,8 +11,8 @@ const CountryDetails = () => {
     useEffect(() => {
         const getCountryDetails = async () => {
             try {
-                const data = await fetchCountryDetails(countryName);
-                setCountry(data);
+                const data = await fetchCountryDetails(code);
+                setCountry(data && data[0]);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -21,7 +21,7 @@ const CountryDetails = () => {
         };
 
         getCountryDetails();
-    }, [countryName]);
+    }, [code]);
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -30,12 +30,12 @@ const CountryDetails = () => {
         <div>
             {country && (
                 <div>
-                    <h1>{country.name}</h1>
-                    <img src={country.flag} alt={`Flag of ${country.name}`} />
-                    <p>Population: {country.population}</p>
+                    <h1>{country.name?.common}</h1>
+                    <img src={country.flags?.png} alt={`Flag of ${country.name?.common}`} />
+                    <p>Population: {country.population?.toLocaleString()}</p>
                     <p>Region: {country.region}</p>
-                    <p>Capital: {country.capital}</p>
-                    <p>Languages: {country.languages.map(lang => lang.name).join(', ')}</p>
+                    <p>Capital: {country.capital?.[0]}</p>
+                    <p>Languages: {country.languages ? Object.values(country.languages).join(', ') : 'N/A'}</p>
                 </div>
             )}
         </div>
