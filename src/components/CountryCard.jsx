@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaUsers, FaGlobe, FaMapMarkerAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const CountryCard = ({ country }) => {
     return (
@@ -11,7 +12,9 @@ const CountryCard = ({ country }) => {
                 <p><FaGlobe /> Region: {country.region}</p>
                 <p><FaMapMarkerAlt /> Capital: {country.capital?.[0] || 'N/A'}</p>
             </div>
-            <button className="details-btn">View Details</button>
+            <Link to={`/country/${country.cca3}`} style={{ textDecoration: 'none' }}>
+                <button className="details-btn">View Details</button>
+            </Link>
         </div>
     );
 };
