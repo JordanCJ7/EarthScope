@@ -9,7 +9,7 @@ const regions = [
     'Oceania',
 ];
 
-const SearchBar = ({ searchTerm, setSearchTerm, region, setRegion }) => {
+const SearchBar = ({ searchTerm, setSearchTerm, region, setRegion, language, setLanguage, languages }) => {
     return (
         <div className="search-bar-container">
             <input
@@ -26,6 +26,16 @@ const SearchBar = ({ searchTerm, setSearchTerm, region, setRegion }) => {
             >
                 {regions.map(r => (
                     <option key={r} value={r}>{r}</option>
+                ))}
+            </select>
+            <select
+                className="language-select"
+                value={language}
+                onChange={e => setLanguage(e.target.value)}
+            >
+                <option value="All Languages">All Languages</option>
+                {languages && languages.map(lang => (
+                    <option key={lang} value={lang}>{lang}</option>
                 ))}
             </select>
         </div>
