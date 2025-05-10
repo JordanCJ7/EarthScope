@@ -1,7 +1,7 @@
 .country-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 columns */
-    gap: 20px; /* Space between cards */
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); /* Responsive columns */
+    gap: 20px;  /* Space between cards */
     padding: 20px;
 }
 
