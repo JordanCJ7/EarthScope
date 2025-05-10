@@ -137,6 +137,7 @@ header {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px 0 40px 0;
+    justify-content: center;
 }
 
 .country-card {
@@ -148,6 +149,8 @@ header {
     align-items: stretch;
     padding: 0 0 18px 0;
     transition: transform 0.18s;
+    max-width: 350px;
+    width: 100%;
 }
 
 .country-card:hover {
