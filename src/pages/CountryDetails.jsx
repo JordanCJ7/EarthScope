@@ -1,7 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { fetchCountryDetails } from '../services/api';
-import { FaArrowLeft, FaUsers, FaGlobe, FaMapMarkerAlt, FaMap, FaMoneyBill, FaFlag, FaCar, FaFutbol, FaPhone, FaGlobeAmericas } from 'react-icons/fa';
+import { FaArrowLeft, FaUsers, FaGlobe, FaMapMarkerAlt, FaMap, FaMoneyBill, FaFlag, FaCar, FaFutbol, FaPhone, FaGlobeAmericas, FaSpinner } from 'react-icons/fa';
+
+const sectionTitleStyle = {
+    fontSize: '1.2rem',
+    fontWeight: 600,
+    margin: '24px 0 12px',
+    color: '#27c47c',
+    letterSpacing: 1,
+    display: 'flex',
+    alignItems: 'center',
+    gap: 8
+};
+const dividerStyle = {
+    border: 'none',
+    borderTop: '1px solid #eee',
+    margin: '18px 0'
+};
+const labelStyle = { fontWeight: 500, color: '#333' };
+const valueStyle = { color: '#444' };
+const infoRowStyle = { marginBottom: 10, display: 'flex', alignItems: 'center', gap: 8 };
+const linkStyle = {
+    color: '#27c47c',
+    textDecoration: 'none',
+    fontWeight: 500,
+    transition: 'color 0.2s',
+};
+const linkHoverStyle = { color: '#1a8c5a' };
 
 const CountryDetails = () => {
     const { code } = useParams();
@@ -9,6 +35,7 @@ const CountryDetails = () => {
     const [country, setCountry] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [hoveredLink, setHoveredLink] = useState(null);
 
     useEffect(() => {
         const getCountryDetails = async () => {
@@ -24,9 +51,15 @@ const CountryDetails = () => {
         getCountryDetails();
     }, [code]);
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
-    if (!country) return <div>No data found.</div>;
+    if (loading) return (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: 80 }}>
+            <FaSpinner className="spin" style={{ fontSize: 48, color: '#27c47c', marginBottom: 16, animation: 'spin 1s linear infinite' }} />
+            <div style={{ fontSize: 20, color: '#888' }}>Loading country details...</div>
+            <style>{`@keyframes spin { 100% { transform: rotate(360deg); } } .spin { animation: spin 1s linear infinite; }`}</style>
+        </div>
+    );
+    if (error) return <div style={{ color: '#c0392b', textAlign: 'center', marginTop: 80, fontSize: 20 }}>⚠️ Error: {error}</div>;
+    if (!country) return <div style={{ color: '#888', textAlign: 'center', marginTop: 80, fontSize: 20 }}>No data found for this country.</div>;
 
     // Helper functions
     const getNativeNames = () => {
@@ -63,39 +96,71 @@ const CountryDetails = () => {
     };
 
     return (
-        <div style={{ maxWidth: 900, margin: '32px auto', background: '#fff', borderRadius: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)', padding: 32 }}>
-            <button onClick={() => history.goBack()} style={{ marginBottom: 24, background: 'none', border: 'none', color: '#27c47c', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                <FaArrowLeft style={{ marginRight: 8 }} /> Back
+        <div style={{ maxWidth: 950, margin: '32px auto', background: '#fff', borderRadius: 16, boxShadow: '0 4px 24px rgba(0,0,0,0.10)', padding: 36, fontFamily: 'Segoe UI, Arial, sans-serif', transition: 'box-shadow 0.2s', minHeight: 600 }}>
+            <button
+                onClick={() => history.goBack()}
+                style={{ marginBottom: 32, background: '#27c47c', border: 'none', color: '#fff', fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', padding: '10px 22px', borderRadius: 8, boxShadow: '0 2px 8px rgba(39,196,124,0.08)', transition: 'background 0.2s' }}
+                onMouseOver={e => e.currentTarget.style.background = '#1a8c5a'}
+                onMouseOut={e => e.currentTarget.style.background = '#27c47c'}
+            >
+                <FaArrowLeft style={{ marginRight: 10 }} /> Back
             </button>
-            <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap' }}>
-                <div style={{ flex: '1 1 320px', minWidth: 280 }}>
-                    <img src={country.flags?.svg || country.flags?.png} alt={`Flag of ${country.name?.common}`} style={{ width: '100%', maxWidth: 350, borderRadius: 8, marginBottom: 16 }} />
-                    {country.coatOfArms?.svg && <img src={country.coatOfArms.svg} alt="Coat of Arms" style={{ width: 120, marginTop: 8, background: '#f8f8f8', borderRadius: 8 }} />}
+            <div style={{ display: 'flex', gap: 40, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+                {/* Flag and Coat of Arms */}
+                <div style={{ flex: '1 1 340px', minWidth: 280, textAlign: 'center' }}>
+                    <img src={country.flags?.svg || country.flags?.png} alt={`Flag of ${country.name?.common}`} style={{ width: '100%', maxWidth: 320, borderRadius: 10, marginBottom: 18, boxShadow: '0 2px 8px rgba(0,0,0,0.07)' }} />
+                    {country.coatOfArms?.svg && <img src={country.coatOfArms.svg} alt="Coat of Arms" style={{ width: 90, marginTop: 10, background: '#f8f8f8', borderRadius: 8, boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }} />}
+                    <div style={{ marginTop: 18, fontSize: 18, color: '#27c47c', fontWeight: 600 }}>{country.name?.common}</div>
+                    <div style={{ fontSize: 15, color: '#888', marginBottom: 8 }}>{country.name?.official}</div>
                 </div>
-                <div style={{ flex: '2 1 400px', minWidth: 280 }}>
-                    <h1 style={{ fontSize: '2.2rem', marginBottom: 8 }}>{country.name?.common}</h1>
-                    <p style={{ fontSize: 18, color: '#555', marginBottom: 8 }}><FaGlobeAmericas /> <b>Official Name:</b> {country.name?.official}</p>
-                    <p><b>Native Name(s):</b> {getNativeNames()}</p>
-                    <p><FaUsers /> <b>Population:</b> {country.population?.toLocaleString()}</p>
-                    <p><FaGlobe /> <b>Region:</b> {country.region} ({country.subregion})</p>
-                    <p><FaMapMarkerAlt /> <b>Capital:</b> {country.capital?.join(', ') || 'N/A'}</p>
-                    <p><b>Area:</b> {country.area?.toLocaleString()} km²</p>
-                    <p><b>Timezones:</b> {country.timezones?.join(', ')}</p>
-                    <p><FaMoneyBill /> <b>Currencies:</b> {getCurrencies()}</p>
-                    <p><b>Languages:</b> {country.languages ? Object.values(country.languages).join(', ') : 'N/A'}</p>
-                    <p><b>Demonym:</b> {getDemonyms()}</p>
-                    <p><b>Start of Week:</b> {country.startOfWeek}</p>
-                    <p><FaCar /> <b>Drives on:</b> {country.car?.side}</p>
-                    <p><FaMap /> <b>Google Maps:</b> <a href={country.maps?.googleMaps} target="_blank" rel="noopener noreferrer">View</a></p>
-                    <p><FaMap /> <b>OpenStreetMap:</b> <a href={country.maps?.openStreetMaps} target="_blank" rel="noopener noreferrer">View</a></p>
-                    <p><b>Borders:</b> {getBorders()}</p>
-                    <p><b>Top-level Domain:</b> {country.tld?.join(', ')}</p>
-                    <p><FaPhone /> <b>Calling Code(s):</b> {getCallingCodes()}</p>
-                    <p><FaFutbol /> <b>FIFA Code:</b> {country.fifa || 'N/A'}</p>
-                    <p><b>UN Member:</b> {country.unMember ? 'Yes' : 'No'}</p>
-                    <p><b>Independent:</b> {country.independent ? 'Yes' : 'No'}</p>
-                    <p><b>Alt Spellings:</b> {getAltSpellings()}</p>
-                    <p><b>Gini Index:</b> {getGini()}</p>
+                {/* Details Card */}
+                <div style={{ flex: '2 1 420px', minWidth: 280 }}>
+                    {/* General Info */}
+                    <div style={sectionTitleStyle}><FaFlag /> General Info</div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Native Name(s):</span> <span style={valueStyle}>{getNativeNames()}</span></div>
+                    <div style={infoRowStyle}><FaUsers /> <span style={labelStyle}>Population:</span> <span style={valueStyle}>{country.population?.toLocaleString()}</span></div>
+                    <div style={infoRowStyle}><FaGlobeAmericas /> <span style={labelStyle}>Region:</span> <span style={valueStyle}>{country.region} ({country.subregion})</span></div>
+                    <div style={infoRowStyle}><FaMapMarkerAlt /> <span style={labelStyle}>Capital:</span> <span style={valueStyle}>{country.capital?.join(', ') || 'N/A'}</span></div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Languages:</span> <span style={valueStyle}>{country.languages ? Object.values(country.languages).join(', ') : 'N/A'}</span></div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Demonym:</span> <span style={valueStyle}>{getDemonyms()}</span></div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Alt Spellings:</span> <span style={valueStyle}>{getAltSpellings()}</span></div>
+                    <hr style={dividerStyle} />
+                    {/* Geography */}
+                    <div style={sectionTitleStyle}><FaMap /> Geography</div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Area:</span> <span style={valueStyle}>{country.area?.toLocaleString()} km²</span></div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Timezones:</span> <span style={valueStyle}>{country.timezones?.join(', ')}</span></div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Borders:</span> <span style={valueStyle}>{getBorders()}</span></div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Top-level Domain:</span> <span style={valueStyle}>{country.tld?.join(', ')}</span></div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Start of Week:</span> <span style={valueStyle}>{country.startOfWeek}</span></div>
+                    <div style={infoRowStyle}><FaCar /> <span style={labelStyle}>Drives on:</span> <span style={valueStyle}>{country.car?.side}</span></div>
+                    <div style={infoRowStyle}><FaMap /> <span style={labelStyle}>Google Maps:</span> <a
+                        href={country.maps?.googleMaps}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={hoveredLink === 'google' ? { ...linkStyle, ...linkHoverStyle } : linkStyle}
+                        onMouseEnter={() => setHoveredLink('google')}
+                        onMouseLeave={() => setHoveredLink(null)}
+                    >View</a></div>
+                    <div style={infoRowStyle}><FaMap /> <span style={labelStyle}>OpenStreetMap:</span> <a
+                        href={country.maps?.openStreetMaps}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={hoveredLink === 'osm' ? { ...linkStyle, ...linkHoverStyle } : linkStyle}
+                        onMouseEnter={() => setHoveredLink('osm')}
+                        onMouseLeave={() => setHoveredLink(null)}
+                    >View</a></div>
+                    <hr style={dividerStyle} />
+                    {/* Economy */}
+                    <div style={sectionTitleStyle}><FaMoneyBill /> Economy</div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Currencies:</span> <span style={valueStyle}>{getCurrencies()}</span></div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Gini Index:</span> <span style={valueStyle}>{getGini()}</span></div>
+                    <hr style={dividerStyle} />
+                    {/* Other */}
+                    <div style={sectionTitleStyle}><FaFutbol /> Other</div>
+                    <div style={infoRowStyle}><FaPhone /> <span style={labelStyle}>Calling Code(s):</span> <span style={valueStyle}>{getCallingCodes()}</span></div>
+                    <div style={infoRowStyle}><FaFutbol /> <span style={labelStyle}>FIFA Code:</span> <span style={valueStyle}>{country.fifa || 'N/A'}</span></div>
+                    <div style={infoRowStyle}><span style={labelStyle}>UN Member:</span> <span style={valueStyle}>{country.unMember ? 'Yes' : 'No'}</span></div>
+                    <div style={infoRowStyle}><span style={labelStyle}>Independent:</span> <span style={valueStyle}>{country.independent ? 'Yes' : 'No'}</span></div>
                 </div>
             </div>
         </div>
