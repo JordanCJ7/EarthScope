@@ -56,15 +56,30 @@ const HomePage = () => {
     }, [searchTerm, region, language, countries]);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return (
+            <div className="centered-message">
+                <div className="spinner"></div>
+                <div style={{ marginTop: 16, color: '#27c47c', fontSize: 20 }}>Loading countries...</div>
+            </div>
+        );
     }
 
     if (error) {
-        return <div style={{ color: 'red', textAlign: 'center', marginTop: '2rem' }}>{error}</div>;
+        return (
+            <div className="centered-message error">
+                <span role="img" aria-label="error" style={{ fontSize: 32, marginBottom: 12 }}>⚠️</span>
+                <div style={{ color: '#c0392b', fontSize: 20 }}>{error}</div>
+            </div>
+        );
     }
 
     return (
-        <div>
+        <div className="home-container">
+            <section className="hero-section">
+                <h1 className="hero-title">🌍 EarthScope</h1>
+                <p className="hero-subtitle">Discover countries, regions, and languages of the world</p>
+                <p className="hero-desc">Browse, search, and filter through a rich database of countries. Click on any country to see detailed information and fun facts!</p>
+            </section>
             <SearchBar
                 searchTerm={searchTerm}
                 setSearchTerm={setSearchTerm}
@@ -74,10 +89,17 @@ const HomePage = () => {
                 setLanguage={setLanguage}
                 languages={languages}
             />
-            <div className="country-grid">
-                {filteredCountries.map(country => (
-                    <CountryCard key={country.cca3} country={country} />
-                ))}
+            <div className="country-grid fade-in">
+                {filteredCountries.length === 0 ? (
+                    <div className="centered-message empty">
+                        <span role="img" aria-label="not found" style={{ fontSize: 40, marginBottom: 10 }}>🔍</span>
+                        <div style={{ color: '#888', fontSize: 18 }}>No countries found. Try adjusting your search or filters.</div>
+                    </div>
+                ) : (
+                    filteredCountries.map(country => (
+                        <CountryCard key={country.cca3} country={country} />
+                    ))
+                )}
             </div>
         </div>
     );
