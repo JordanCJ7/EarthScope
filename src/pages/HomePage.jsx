@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import CountryCard from '../components/CountryCard';
 import SearchBar from '../components/SearchBar';
 import { fetchAllCountries } from '../services/api';
-import '../styles/HomePage.css';
 
 const HomePage = () => {
     const [countries, setCountries] = useState([]);
