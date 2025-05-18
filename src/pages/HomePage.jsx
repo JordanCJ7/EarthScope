@@ -77,8 +77,8 @@ const HomePage = () => {
         <div className="home-container">
             <section className="hero-section">
                 <h1 className="hero-title">🌍 EarthScope</h1>
-                <p className="hero-subtitle">Discover countries, regions, and languages of the world</p>
-                <p className="hero-desc">Browse, search, and filter through a rich database of countries. Click on any country to see detailed information and fun facts!</p>
+                <p className="hero-subtitle">Explore the World’s Countries, Regions, and Languages</p>
+                <p className="hero-desc">Dive into an interactive database where you can browse, search, and filter countries from every corner of the globe. Click on any country to uncover detailed info, cultural insights, and fascinating facts!</p>
             </section>
             <SearchBar
                 searchTerm={searchTerm}

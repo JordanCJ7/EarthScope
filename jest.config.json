@@ -1,0 +1,7 @@
+{
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": ["<rootDir>/src/setupTests.js"],
+  "transformIgnorePatterns": [
+    "<rootDir>/node_modules/(?!axios)"
+  ]
+}
