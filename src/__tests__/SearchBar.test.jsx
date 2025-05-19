@@ -20,9 +20,9 @@ describe('SearchBar', () => {
         languages={languages}
       />
     );
-    expect(screen.getByPlaceholderText(/search for a country/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/region/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/language/i)).toBeInTheDocument();
+    expect(screen.getByRole('textbox', { name: /search for a country/i })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /region/i })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: /language/i })).toBeInTheDocument();
   });
 
   it('calls setSearchTerm on input change', () => {
@@ -37,7 +37,7 @@ describe('SearchBar', () => {
         languages={languages}
       />
     );
-    fireEvent.change(screen.getByPlaceholderText(/search for a country/i), { target: { value: 'test' } });
+    fireEvent.change(screen.getByRole('textbox', { name: /search for a country/i }), { target: { value: 'test' } });
     expect(mockSetSearchTerm).toHaveBeenCalledWith('test');
   });
 });

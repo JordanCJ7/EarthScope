@@ -59,10 +59,11 @@ This project uses **Jest** and **React Testing Library** for unit and integratio
 ### Test Overview
 - **App.test.jsx**: Checks that the main app renders and displays the EarthScope title.
 - **Header.test.jsx**: Ensures the header renders and displays the app title inside a router context.
-- **SearchBar.test.jsx**: Verifies the search bar renders, and that input and dropdowns work and call their handlers.
+- **SearchBar.test.jsx**: Verifies the search bar renders, and that input and dropdowns work and call their handlers. Updated to use accessible roles and names for robust querying.
 - **CountryCard.test.jsx**: Checks that a country card displays the country name, capital, region, population, and flag (wrapped in a router context).
 - **CountryDetails.test.jsx**: Mocks the API and router, then checks that detailed country info (name, capital, region, language, flag, etc.) is rendered after loading.
 - **HomePage.test.jsx**: Ensures the loading state is shown initially.
+- **integration.test.jsx**: Provides integration testing for user flows, including searching, filtering by region and language, and verifying UI updates across components.
 
 ### How to Run Tests
 

@@ -17,6 +17,9 @@
   "author": "Your Name",
   "license": "MIT",
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.1.0",
     "axios": "^1.9.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
@@ -36,7 +39,8 @@
     "eslint": "^9.26.0",
     "jest": "^27.5.1",
     "postcss": "^8.5.3",
-    "tailwindcss": "^4.1.5"
+    "tailwindcss": "^4.1.5",
+    "whatwg-fetch": "^3.6.20"
   },
   "browserslist": {
     "production": [
