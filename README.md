@@ -12,10 +12,14 @@ EarthScope is a modern React application that displays comprehensive country inf
 
 ## Technologies Used
 
-- React.js (with hooks)
-- React Router
-- REST Countries API
-- CSS (custom, responsive)
+- **React.js** (with functional components and hooks)
+- **React Router DOM** (for client-side routing)
+- **Material UI** (for UI components and styling)
+- **REST Countries API** (for country data)
+- **Jest** & **React Testing Library** (for unit and integration testing)
+- **CSS** (custom, responsive)
+- **Node.js** (v14+ required for development)
+- **ESLint & Prettier** (for code quality and formatting)
 
 ## Getting Started
 
