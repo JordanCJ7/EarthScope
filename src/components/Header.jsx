@@ -9,6 +9,13 @@ const Header = () => {
     const { user, logout } = useContext(AuthContext);
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
+
+    const handleLogout = () => {
+        if (window.confirm('Are you sure you want to log out?')) {
+            logout();
+        }
+    };
+
     return (
         <header className="app-header">
             <div className="header-content" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -21,7 +28,7 @@ const Header = () => {
                     <IconButton ref={anchorRef} onClick={() => setOpen((v) => !v)}>
                       <Avatar sx={{ bgcolor: '#388e3c' }}>{user.username?.[0]?.toUpperCase() || '?'}</Avatar>
                     </IconButton>
-                    <button onClick={logout} style={{ marginLeft: 12, background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontWeight: 'bold' }}>Logout</button>
+                    <button onClick={handleLogout} style={{ marginLeft: 12, background: 'none', border: 'none', color: 'white', cursor: 'pointer', fontWeight: 'bold' }}>Logout</button>
                     <ProfileDropdown open={open} anchorEl={anchorRef.current} onClose={() => setOpen(false)} />
                   </div>
                 )}
