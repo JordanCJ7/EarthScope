@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { Avatar, IconButton } from '@mui/material';
 import ProfileDropdown from './ProfileModal';
+import Swal from 'sweetalert2';
 
 const Header = () => {
     const { user, logout } = useContext(AuthContext);
@@ -11,9 +12,21 @@ const Header = () => {
     const anchorRef = useRef(null);
 
     const handleLogout = () => {
-        if (window.confirm('Are you sure you want to log out?')) {
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'Do you want to log out?',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#388e3c',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, log out',
+          background: '#e8f5e9',
+          customClass: { popup: 'swal2-border-radius' }
+        }).then((result) => {
+          if (result.isConfirmed) {
             logout();
-        }
+          }
+        });
     };
 
     return (
