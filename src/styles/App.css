@@ -68,27 +68,31 @@ header {
 }
 
 .app-header {
-    background-color: #27c47c;
-    color: #fff;
-    padding: 18px 0;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    background-color: #388e3c;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(56, 142, 60, 0.08);
 }
 
 .header-content {
-    display: flex;
-    align-items: center;
     max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
 }
 
 .header-icon {
-    font-size: 2rem;
-    margin-right: 10px;
+    font-size: 2.2em;
+    color: #a5d6a7;
 }
 
 .header-title {
-    font-size: 1.6rem;
+    font-size: 2em;
     font-weight: bold;
+    margin-left: 10px;
     letter-spacing: 1px;
 }
 
