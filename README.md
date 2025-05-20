@@ -5,6 +5,9 @@ EarthScope is a modern React application that displays comprehensive country inf
 ## Features
 
 - Browse a list of countries with their names, flags, populations, regions, capitals, and languages.
+- **User session**: Register, log in, and manage your profile. User data is securely stored in your browser's local storage.
+- **Authentication redirect**: Users are directed to the login/register interface on first visit or when not authenticated.
+- **Profile management**: Access a modern profile modal from the header to view and edit your profile information.
 - **Search** functionality to find countries by name.
 - **Filter** countries by region and language.
 - View **detailed information** about each country, including bordering countries and more.
